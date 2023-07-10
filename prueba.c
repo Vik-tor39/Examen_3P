@@ -6,8 +6,9 @@ int main() {
     char nom[50], carr[50];
     float sum;
     float not1, not2, not3;
-
-    FILE *archivo, *temp;
+    char lineas[5][100];
+    int cont = 0;
+    FILE *archivo, *temp, *temp2;
     archivo = fopen("alumnos.txt", "r");
     temp = fopen("temp.txt", "w");
 
@@ -21,6 +22,19 @@ int main() {
         }
         fclose(archivo);
         fclose(temp);
+    }
+    
+    temp = fopen("temp.txt", "r");
+    temp2 = fopen("temp2.txt", "w");
+    if (temp && temp2) {
+        while (fgets(lineas[cont], sizeof(lineas[cont]), temp)) {
+            cont++;
+        }
+        fclose(temp);
+        for (int i = cont - 1; i >= 0; i--) {
+            fprintf(temp2, "%s", lineas[i]);
+        }
+        fclose(temp2);
     }
     return 0;
 }
